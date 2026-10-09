@@ -1,0 +1,32 @@
+$ POST /api/carrinho/calcular  (CT-API-01: cupom inexistente)
+{"itens":[{"produtoId":"P005","nome":"Mochila Urbana 20L","precoUnitario":100,"quantidade":1,"total":100}],"subtotal":100,"desconto":0,"frete":19.9,"freteGratis":false,"valorFaltanteFreteGratis":100,"total":119.9,"cupom":{"codigo":"CUPOMINEXISTENTE","aplicado":false,"mensagem":"Cupom inválido."}}
+HTTP 200
+
+$ POST /api/carrinho/calcular  (CT-API-02: cupom expirado)
+{"itens":[{"produtoId":"P005","nome":"Mochila Urbana 20L","precoUnitario":100,"quantidade":1,"total":100}],"subtotal":100,"desconto":0,"frete":19.9,"freteGratis":false,"valorFaltanteFreteGratis":100,"total":119.9,"cupom":{"codigo":"VERAO2026","aplicado":false,"mensagem":"Cupom expirado."}}
+HTTP 200
+
+$ POST /api/carrinho/calcular  (CT-API-03 / BUG-002: quantidade 6)
+{"itens":[{"produtoId":"P001","nome":"Camiseta Essencial","precoUnitario":59.9,"quantidade":6,"total":359.4}],"subtotal":359.4,"desconto":0,"frete":0,"freteGratis":true,"valorFaltanteFreteGratis":0,"total":359.4,"cupom":null}
+HTTP 200
+
+$ POST /api/carrinho/calcular  (CT-API-04: formula e arredondamento)
+{"itens":[{"produtoId":"P002","nome":"Calça Jeans Slim","precoUnitario":139.9,"quantidade":1,"total":139.9},{"produtoId":"P004","nome":"Boné Aba Curva","precoUnitario":49.9,"quantidade":2,"total":99.8}],"subtotal":239.7,"desconto":23.97,"frete":0,"freteGratis":true,"valorFaltanteFreteGratis":0,"total":215.73,"cupom":{"codigo":"BEMVINDO10","aplicado":true,"mensagem":"Cupom aplicado: 10% de desconto nos produtos."}}
+HTTP 200
+
+$ POST /api/pedidos  (CT-API-05: cupom inexistente)
+{"erro":{"codigo":"CUPOM_INVALIDO","mensagem":"Cupom inválido.","campo":"cupom"}}
+HTTP 422
+
+$ POST /api/pedidos  (CT-API-06: cupom expirado)
+{"erro":{"codigo":"CUPOM_EXPIRADO","mensagem":"Cupom expirado.","campo":"cupom"}}
+HTTP 422
+
+$ POST /api/carrinho/calcular  (CA10.1: quantidade 0)
+{"erro":{"codigo":"QUANTIDADE_INVALIDA","mensagem":"A quantidade deve ser um número inteiro maior ou igual a 1.","campo":"itens[0].quantidade"}}
+HTTP 422
+
+$ POST /api/carrinho/calcular  (CA10.1: quantidade 1.5)
+{"erro":{"codigo":"QUANTIDADE_INVALIDA","mensagem":"A quantidade deve ser um número inteiro maior ou igual a 1.","campo":"itens[0].quantidade"}}
+HTTP 422
+
