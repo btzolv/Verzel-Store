@@ -11,7 +11,7 @@
 
 ---
 
-## 📊 Resumo da Execução
+## Resumo da Execução
 
 | Suíte | Arquivo | Testes | Passaram | Falharam |
 |---|---|:-:|:-:|:-:|
@@ -28,23 +28,23 @@
 
 | Causa | Testes | Registro |
 |---|---|---|
-| 🐞 Frete cobrado com subtotal exato de R$ 200,00 | CT-E2E-07, CT-E2E-08 | [BUG-001](report-de-bugs.md) |
-| 🐞 API aceita 6 unidades de um produto | CT-API-03 | [BUG-002](report-de-bugs.md) |
+|  Frete cobrado com subtotal exato de R$ 200,00 | CT-E2E-07, CT-E2E-08 | [BUG-001](report-de-bugs.md) |
+|  API aceita 6 unidades de um produto | CT-API-03 | [BUG-002](report-de-bugs.md) |
 
 > Na primeira execução houve 5 falhas. CT-API-05 e CT-API-06 falhavam por erro nos scripts (ver [Correções nos scripts](#-correções-nos-scripts-de-teste)); após o ajuste, passam.
 
 ---|---|---|
-| 🐞 **Defeito da aplicação** – frete cobrado com subtotal exato de R$ 200,00 | CT-E2E-07, CT-E2E-08 | [BUG-001](report-de-bugs.md) |
-| 🐞 **Defeito da aplicação** – API aceita 6 unidades de um produto | CT-API-03 ² | [BUG-002](report-de-bugs.md) |
-| 🛠️ **Defeito do script de teste** – payload e leitura do erro incorretos | CT-API-05, CT-API-06 | Seção [Falhas nos scripts](#-falhas-causadas-pelos-scripts-de-teste) |
+|  **Defeito da aplicação** – frete cobrado com subtotal exato de R$ 200,00 | CT-E2E-07, CT-E2E-08 | [BUG-001](report-de-bugs.md) |
+|  **Defeito da aplicação** – API aceita 6 unidades de um produto | CT-API-03 ² | [BUG-002](report-de-bugs.md) |
+|  **Defeito do script de teste** – payload e leitura do erro incorretos | CT-API-05, CT-API-06 | Seção [Falhas nos scripts](#-falhas-causadas-pelos-scripts-de-teste) |
 
 ² O CT-API-03 também tem um problema no script (lê `body.codigo`, mas o erro vem em `body.erro.codigo`). Ver BUG-002.
 
 ---
 
-## 📋 Detalhamento dos Testes Executados
+##  Detalhamento dos Testes Executados
 
-### 🏷️ 1. Cupons de desconto
+###  1. Cupons de desconto
 
 | ID | CA | Cenário / Entrada | Resultado esperado | Status | Observações |
 |---|---|---|---|:-:|---|
@@ -59,7 +59,7 @@
 | **CT-E2E-05** | CA05 | Aplica `BEMVINDO10`, remove, aplica `VERAO2026` | Com cupom ativo não há campo para um segundo cupom; após remover, só o novo é considerado | ✅ PASS | |
 | **CT-E2E-06** | CA05 | Aplica `BEMVINDO10`, remove e reaplica | Desconto não acumula (R$ 5,99); total R$ 73,81 | ✅ PASS | |
 
-### 🚚 2. Frete e valor limite (BVA)
+###  2. Frete e valor limite (BVA)
 
 | ID | CA | Cenário / Entrada | Resultado esperado | Status | Observações |
 |---|---|---|---|:-:|---|
@@ -68,7 +68,7 @@
 | **CT-E2E-08** | CA06, CA08, CA09 | Subtotal R$ 200,00 + `BEMVINDO10` | Desconto R$ 20,00; frete "Grátis" (regra usa subtotal antes do desconto); total R$ 180,00 | ❌ FAIL | Desconto correto (R$ 20,00), mas frete **R$ 19,90**. Mesma causa do BUG-001 |
 | **CT-E2E-09** | CA08 | Tênis + Kit de Meias = R$ 219,80 + `BEMVINDO10` | Desconto R$ 21,98; frete "Grátis" mesmo com total (R$ 197,82) abaixo de R$ 200; total R$ 197,82 | ✅ PASS | Confirma que o defeito está só no valor limite exato |
 
-### 📦 3. Quantidade e arredondamento
+###  3. Quantidade e arredondamento
 
 | ID | CA | Cenário / Entrada | Resultado esperado | Status | Observações |
 |---|---|---|---|:-:|---|
@@ -79,7 +79,7 @@
 
 ---
 
-## 🛠️ Correções nos scripts de teste
+##  Correções nos scripts de teste
 
 CT-API-05 e CT-API-06 falharam na primeira execução por erro nos scripts, não por defeito da aplicação:
 
@@ -90,7 +90,7 @@ CT-API-05 e CT-API-06 falharam na primeira execução por erro nos scripts, não
 
 ---
 
-## 🔎 Verificações exploratórias (fora da suíte automatizada)
+##  Verificações exploratórias (fora da suíte automatizada)
 
 | CA | Entrada | Resultado | Status |
 |---|---|---|:-:|
@@ -101,7 +101,7 @@ CT-API-05 e CT-API-06 falharam na primeira execução por erro nos scripts, não
 
 ---
 
-## 🗺️ Rastreabilidade (critério → testes)
+##  Rastreabilidade (critério → testes)
 
 | CA | Testes | Resultado |
 |---|---|:-:|
@@ -122,11 +122,11 @@ CT-API-05 e CT-API-06 falharam na primeira execução por erro nos scripts, não
 
 ---
 
-## 📸 Evidências
+##  Evidências
 
 Screenshots de todos os testes, respostas da API e relatório HTML: veja [evidencias.md](evidencias.md).
 
-## ▶️ Como reproduzir
+##  Como reproduzir
 
 ```bash
 cd e2e
@@ -134,6 +134,6 @@ npx playwright test                                       # execução padrão
 npx playwright test -c playwright.evidencias.config.ts    # com screenshots e trace de todos os testes
 ```
 
-## 📌 Conclusão
+##  Conclusão
 
 A entrega **não está apta para liberação**: há 2 defeitos abertos de regra de negócio (BUG-001, BUG-002). Os demais critérios (cupons, troca de cupom, frete abaixo e acima de R$ 200,00, limite na interface e arredondamento) estão conformes. 
