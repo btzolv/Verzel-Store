@@ -1,4 +1,4 @@
-# 🛒 Verzel Store – Suíte de Testes e Garantia de Qualidade (VZS-142)
+# Verzel Store – Suíte de Testes e Garantia de Qualidade (VZS-142)
 
 Este repositório contém a estratégia de Garantia de Qualidade (QA), a automação de testes E2E e de API e o registro de inconformidades da funcionalidade de **Cupons de Desconto e Frete Grátis** da Verzel Store (versão 2.3.0).
 
@@ -6,7 +6,7 @@ Este repositório contém a estratégia de Garantia de Qualidade (QA), a automa�
 
 ---
 
-## 📊 Resultado da Execução
+##  Resultado da Execução
 
 | Total | ✅ Passaram | ❌ Falharam |
 |:-:|:-:|:-:|
@@ -21,7 +21,7 @@ As 3 falhas são **defeitos reais da aplicação** e foram mantidas de propósit
 
 ---
 
-## 📁 Estrutura do Repositório
+##  Estrutura do Repositório
 
 ```text
 verzel-store-qa/
@@ -44,7 +44,7 @@ verzel-store-qa/
 
 ---
 
-## 🚀 Como Executar a Automação (Playwright)
+##  Como Executar a Automação (Playwright)
 
 ### Pré-requisitos
 - Node.js 18 ou superior
@@ -77,11 +77,11 @@ npx playwright test -c playwright.evidencias.config.ts
 npx playwright show-report
 ```
 
-> ⚠️ **A suíte termina com 3 testes vermelhos.** Isso é esperado: CT-E2E-07, CT-E2E-08 e CT-API-03 verificam o comportamento correto da especificação e falham por causa dos bugs BUG-001 e BUG-002. Quando os bugs forem corrigidos, devem passar sem alteração no código dos testes.
+>  **A suíte termina com 3 testes vermelhos.** Isso é esperado: CT-E2E-07, CT-E2E-08 e CT-API-03 verificam o comportamento correto da especificação e falham por causa dos bugs BUG-001 e BUG-002. Quando os bugs forem corrigidos, devem passar sem alteração no código dos testes.
 
 ---
 
-## 🗺️ Cobertura por Critério de Aceite
+##  Cobertura por Critério de Aceite
 
 | CA | Regra | Testes |
 |---|---|---|
@@ -99,7 +99,7 @@ A matriz completa, com o resultado de cada teste, está em [relatorio-de-execuca
 
 ---
 
-## 📌 Registro de Interpretações e Ambiguidade de Negócio
+##  Registro de Interpretações e Ambiguidade de Negócio
 
 Durante o mapeamento das regras de cálculo do carrinho, foram adotadas as seguintes premissas:
 
@@ -109,13 +109,13 @@ Durante o mapeamento das regras de cálculo do carrinho, foram adotadas as segui
 - **Ordem de validação da API de pedidos:** `/api/pedidos` valida os dados do `cliente` (`nome`, `email`, `cep`) antes do cupom. Por isso os testes CT-API-05 e CT-API-06 enviam um cliente válido, para que a resposta reflita o erro de cupom.
 - **Formato de erro da API:** os erros chegam encapsulados (`{ "erro": { "codigo", "mensagem", "campo" } }`), e os testes leem `body.erro.codigo`.
 
-### 💡 Análise de Clareza de Requisitos
+###  Análise de Clareza de Requisitos
 
 - **Terminologia do limite de frete grátis:** a especificação diz *"a partir de R$ 200,00, inclusive"*. Embora *"inclusive"* seja redundante em relação a *"a partir de"*, ele deixa explícita a fronteira (análise de valor limite, BVA) e exige o operador `>=` em vez de `>`. É justamente nesse valor limite que o BUG-001 ocorre.
 
 ---
 
-## 📚 Documentação
+##  Documentação
 
 | Documento | Conteúdo |
 |---|---|
